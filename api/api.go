@@ -61,7 +61,7 @@ type GetResponse struct {
 
 type VoteResponse struct {
 	baseResponse
-	Votes int `json:"votes"`
+	Votes int `json:"votes,omitempty"`
 }
 
 type Error struct {
