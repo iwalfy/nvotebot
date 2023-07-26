@@ -2,6 +2,7 @@ package api
 
 import (
 	"context"
+	"fmt"
 	"github.com/goccy/go-json"
 	. "github.com/iwalfy/nvotebot/util"
 	"io"
@@ -114,6 +115,10 @@ func (c *Client) makeRequest(ctx context.Context, method string, params url.Valu
 		return err
 	}
 	defer res.Body.Close()
+
+	if res.StatusCode != http.StatusOK {
+		return fmt.Errorf("backend returned status != 200 (current: %d)", res.StatusCode)
+	}
 
 	b, err := io.ReadAll(res.Body)
 	if err != nil {
