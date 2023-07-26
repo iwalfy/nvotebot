@@ -3,13 +3,14 @@ package api
 import (
 	"context"
 	"fmt"
-	"github.com/goccy/go-json"
-	. "github.com/iwalfy/nvotebot/util"
 	"io"
 	"net/http"
 	"net/url"
 	"strconv"
 	"time"
+
+	"github.com/goccy/go-json"
+	. "github.com/iwalfy/nvotebot/util"
 )
 
 const (
@@ -31,24 +32,6 @@ func NewClient(apiUrl, apiKey string) *Client {
 			Timeout: 5 * time.Second,
 		},
 	}
-}
-
-type baseResponse struct {
-	Error_   bool   `json:"error"`
-	Code_    int    `json:"code,omitempty"`
-	Message_ string `json:"message,omitempty"`
-}
-
-func (r *baseResponse) Error() bool { return r.Error_ }
-
-func (r *baseResponse) Code() int { return r.Code_ }
-
-func (r *baseResponse) Message() string { return r.Message_ }
-
-type IBaseResponse interface {
-	Error() bool
-	Code() int
-	Message() string
 }
 
 type GetResponse struct {
@@ -97,7 +80,7 @@ func (c *Client) Vote(ctx context.Context, userId int64, uuid string) (*VoteResp
 	return res, nil
 }
 
-func (c *Client) makeRequest(ctx context.Context, method string, params url.Values, out IBaseResponse) error {
+func (c *Client) makeRequest(ctx context.Context, method string, params url.Values, out Response) error {
 	req := Must(http.NewRequestWithContext(
 		ctx,
 		"GET",
@@ -134,16 +117,4 @@ func (c *Client) makeRequest(ctx context.Context, method string, params url.Valu
 	} else {
 		return &Error{message: out.Message()}
 	}
-}
-
-func createParams(params ...url.Values) url.Values {
-	out := make(url.Values)
-	for _, param := range params {
-		for key, values := range param {
-			for _, value := range values {
-				out.Add(key, value)
-			}
-		}
-	}
-	return out
 }

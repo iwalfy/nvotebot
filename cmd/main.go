@@ -10,6 +10,7 @@ import (
 	"github.com/goccy/go-json"
 	"github.com/iwalfy/nvotebot/api"
 	. "github.com/iwalfy/nvotebot/util"
+	ju "github.com/iwalfy/nvotebot/util/json"
 	tg "github.com/mymmrac/telego"
 	th "github.com/mymmrac/telego/telegohandler"
 	tu "github.com/mymmrac/telego/telegoutil"
@@ -94,7 +95,7 @@ func nextCommand(bot *tg.Bot, message tg.Message) {
 func voteCallback(bot *tg.Bot, query tg.CallbackQuery) {
 	id := query.Message.Chat.ID
 
-	var meta voteMessageMetadata
+	var meta buttonMetadata
 
 	if err := json.Unmarshal([]byte(query.Data), &meta); err != nil {
 		answerCallback(bot, query.ID, "???")
@@ -108,7 +109,7 @@ func voteCallback(bot *tg.Bot, query tg.CallbackQuery) {
 	}
 
 	if meta.Skipped == 1 {
-		bot.AnswerCallbackQuery(tu.CallbackQuery(query.ID))
+		_ = bot.AnswerCallbackQuery(tu.CallbackQuery(query.ID))
 		sendVote(bot, id)
 		return
 	}
@@ -122,8 +123,8 @@ func voteCallback(bot *tg.Bot, query tg.CallbackQuery) {
 			Text:      query.Message.Text,
 			ReplyMarkup: tu.InlineKeyboard(
 				tu.InlineKeyboardRow(
-					tu.InlineKeyboardButton("👍").WithCallbackData(string(Must(json.Marshal(meta)))),
-					tu.InlineKeyboardButton("➡️").WithCallbackData(string(Must(json.Marshal(voteMessageMetadata{Like: 0, Voted: 0, Skipped: 1})))),
+					tu.InlineKeyboardButton("👍").WithCallbackData(ju.Stringify(meta)),
+					tu.InlineKeyboardButton("➡️").WithCallbackData(ju.Stringify(buttonMetadata{Like: 0, Voted: 0, Skipped: 1})),
 				),
 			),
 		})
@@ -153,8 +154,8 @@ func voteCallback(bot *tg.Bot, query tg.CallbackQuery) {
 		Text:      query.Message.Text,
 		ReplyMarkup: tu.InlineKeyboard(
 			tu.InlineKeyboardRow(
-				tu.InlineKeyboardButton(fmt.Sprintf("👍 (%d)", res.Votes)).WithCallbackData(string(Must(json.Marshal(meta)))),
-				tu.InlineKeyboardButton("➡️").WithCallbackData(string(Must(json.Marshal(voteMessageMetadata{Like: 0, Voted: 0, Skipped: 1})))),
+				tu.InlineKeyboardButton(fmt.Sprintf("👍 (%d)", res.Votes)).WithCallbackData(ju.Stringify(meta)),
+				tu.InlineKeyboardButton("➡️").WithCallbackData(ju.Stringify(buttonMetadata{Like: 0, Voted: 0, Skipped: 1})),
 			),
 		),
 	})
@@ -183,12 +184,12 @@ func sendVote(bot *tg.Bot, id int64) {
 
 	variant := res.ToVote[0]
 
-	metadata := string(Must(json.Marshal(&voteMessageMetadata{
+	metadata := ju.Stringify(buttonMetadata{
 		Like:    1,
 		Voted:   0,
 		Skipped: 0,
 		UUID:    variant.UUID,
-	})))
+	})
 
 	_, err = bot.SendMessage(
 		tu.Message(
@@ -197,7 +198,7 @@ func sendVote(bot *tg.Bot, id int64) {
 		).WithReplyMarkup(tu.InlineKeyboard(
 			tu.InlineKeyboardRow(
 				tu.InlineKeyboardButton("👍").WithCallbackData(metadata),
-				tu.InlineKeyboardButton("➡️").WithCallbackData(string(Must(json.Marshal(voteMessageMetadata{Like: 0, Skipped: 1})))),
+				tu.InlineKeyboardButton("➡️").WithCallbackData(ju.Stringify(buttonMetadata{Like: 0, Skipped: 1})),
 			),
 		)),
 	)
@@ -245,7 +246,7 @@ func handleMessageEditError(chatId int64, messageId int, err error) {
 	}
 }
 
-type voteMessageMetadata struct {
+type buttonMetadata struct {
 	Like    int    `json:"l"`
 	Voted   int    `json:"v"`
 	Skipped int    `json:"s"`
