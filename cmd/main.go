@@ -108,6 +108,7 @@ func voteCallback(bot *tg.Bot, query tg.CallbackQuery) {
 	}
 
 	if meta.Skipped == 1 {
+		bot.AnswerCallbackQuery(tu.CallbackQuery(query.ID))
 		sendVote(bot, id)
 		return
 	}
