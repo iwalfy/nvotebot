@@ -1,10 +1,11 @@
 package main
 
 import (
+	"os"
+
 	. "github.com/iwalfy/nvotebot/util"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
-	"os"
 )
 
 var logger *zap.Logger
