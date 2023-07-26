@@ -4,6 +4,8 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"net/http"
+	_ "net/http/pprof"
 	"os"
 	"os/signal"
 
@@ -39,6 +41,14 @@ var (
 )
 
 func main() {
+	go func() {
+		logger.Info("Starting web server for debug/pprof")
+		err := http.ListenAndServe("127.0.0.1:6756", nil)
+		if err != nil {
+			panic(err)
+		}
+	}()
+
 	logger.Info("Starting...")
 
 	stopChan := make(chan struct{})
