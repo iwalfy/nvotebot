@@ -10,12 +10,6 @@ type baseResponse struct {
 	Message_ string `json:"message,omitempty"`
 }
 
-type Response interface {
-	Error() bool
-	Code() int
-	Message() string
-}
-
 func (r *baseResponse) Error() bool     { return r.Error_ }
 func (r *baseResponse) Code() int       { return r.Code_ }
 func (r *baseResponse) Message() string { return r.Message_ }

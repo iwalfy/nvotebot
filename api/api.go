@@ -34,6 +34,12 @@ func NewClient(apiUrl, apiKey string) *Client {
 	}
 }
 
+type Response interface {
+	Error() bool
+	Code() int
+	Message() string
+}
+
 type GetResponse struct {
 	baseResponse
 	ToVote []struct {
