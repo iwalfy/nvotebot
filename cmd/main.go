@@ -19,15 +19,12 @@ import (
 
 var (
 	debugLogPath = Getenv("NVOTE_DEBUG_LOG_PATH", "./debug.log")
-	apiUrl       = os.Getenv("NVOTE_API_URL")
+	apiUrl       = Getenv("NVOTE_API_URL", "https://nvote.lebedinets.ru/vote_bot.php")
 	apiToken     = os.Getenv("NVOTE_API_TOKEN")
 	botToken     = os.Getenv("NVOTE_BOT_TOKEN")
 )
 
 func init() {
-	if apiUrl == "" {
-		apiUrl = "https://nvote.lebedinets.ru/vote_bot.php"
-	}
 	if apiToken == "" {
 		panic("NeuralOpenNet token is not set in NVOTE_API_TOKEN")
 	}
