@@ -32,10 +32,10 @@ var (
 
 func init() {
 	if apiToken == "" {
-		panic("NeuralOpenNet token is not set in NVOTE_API_TOKEN")
+		logger.Fatal("NeuralOpenNet token is not set in NVOTE_API_TOKEN")
 	}
 	if botToken == "" {
-		panic("bot token is not set in NVOTE_BOT_TOKEN")
+		logger.Fatal("bot token is not set in NVOTE_BOT_TOKEN")
 	}
 }
 
