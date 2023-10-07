@@ -3,7 +3,7 @@ Telegram Bot for Neural OpenNet (https://t.me/neuro_opennet) post voting system 
 
 # Building:
 ```console
-$ CGO_ENABLED=0 go build -o bot -v -tags osusergo,netgo -ldflags '-w -s' github.com/iwalfy/nvotebot/cmd
+$ CGO_ENABLED=0 go build -o bot -v -tags osusergo,netgo -ldflags '-w -s' github.com/iwalfy/nvotebot/cmd/nvotebot
 ```
 
 # Running:
