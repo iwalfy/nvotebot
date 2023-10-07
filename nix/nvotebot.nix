@@ -12,7 +12,7 @@ in buildGoApplication {
 	subPackages = [ "cmd/${pname}" ];
 
 	CGO_ENABLED = 0;
-	ldflags = [ "-w" "-s" ];
+	ldflags = [ "-w" "-s" "-X main.commitHash=${flake.shortRev}" ];
 	tags = [ "netgo" "osusergo" ];
 
 	meta = with lib; {

@@ -17,6 +17,12 @@ import (
 	"go.uber.org/zap"
 )
 
+var commitHash = "unknown"
+
+func init() {
+	logger.Info(fmt.Sprintf("Starting NeuralOpenNet bot (%s)", commitHash))
+}
+
 var (
 	debugLogPath = Getenv("NVOTE_DEBUG_LOG_PATH", "./debug.log")
 	apiUrl       = Getenv("NVOTE_API_URL", "https://nvote.lebedinets.ru/vote_bot.php")
@@ -39,8 +45,6 @@ var (
 )
 
 func main() {
-	logger.Info("Starting...")
-
 	stopChan := make(chan struct{})
 	var ctxCancel context.CancelFunc
 	ctx, ctxCancel = context.WithCancel(context.Background())
