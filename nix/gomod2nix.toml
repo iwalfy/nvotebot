@@ -1,0 +1,33 @@
+schema = 3
+
+[mod]
+  [mod."github.com/andybalholm/brotli"]
+    version = "v1.0.5"
+    hash = "sha256-/qS8wU8yZQJ+uTOg66rEl9s7spxq9VIXF5L1BcaEClc="
+  [mod."github.com/fasthttp/router"]
+    version = "v1.4.20"
+    hash = "sha256-aTkNxqB5seT0uAkBFQg7l0xdN2aPbZQzz3d4BnVlA2c="
+  [mod."github.com/goccy/go-json"]
+    version = "v0.10.2"
+    hash = "sha256-6fMD2/Rku8HT0zDdeA23pX0YxbohiIOC8OJNYbylJTQ="
+  [mod."github.com/klauspost/compress"]
+    version = "v1.17.0"
+    hash = "sha256-Ig86slHz98UbvvkCYK1QXReArAK74T/UNedVq/ZjH5k="
+  [mod."github.com/mymmrac/telego"]
+    version = "v0.26.4-0.20231001193302-363747d9a9bf"
+    hash = "sha256-KaU6IjF8uOBwSPIQYPlZ+GKo/Zer6Ds7SdeX8jc5IvA="
+  [mod."github.com/savsgio/gotils"]
+    version = "v0.0.0-20230208104028-c358bd845dee"
+    hash = "sha256-38uPEruTtVRqleBivVwx6oO1FSx4edqEujYdZNTriMo="
+  [mod."github.com/valyala/bytebufferpool"]
+    version = "v1.0.0"
+    hash = "sha256-I9FPZ3kCNRB+o0dpMwBnwZ35Fj9+ThvITn8a3Jr8mAY="
+  [mod."github.com/valyala/fasthttp"]
+    version = "v1.50.0"
+    hash = "sha256-825dQTa0aLuLCzljblN6BvjFlYXOiOFQa47n90BSzKc="
+  [mod."go.uber.org/multierr"]
+    version = "v1.11.0"
+    hash = "sha256-Lb6rHHfR62Ozg2j2JZy3MKOMKdsfzd1IYTR57r3Mhp0="
+  [mod."go.uber.org/zap"]
+    version = "v1.26.0"
+    hash = "sha256-EUQnALSDtoJryWp01K/PMbRUvQYG1uDbqGnlJ/7thE4="

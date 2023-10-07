@@ -1,8 +1,11 @@
 *
 !*/
 !*.go
+!*.nix
 !go.sum
+!gomod2nix.toml
 !go.mod
+!flake.lock
 !LICENSE
 !README.md
 !/.gitignore
